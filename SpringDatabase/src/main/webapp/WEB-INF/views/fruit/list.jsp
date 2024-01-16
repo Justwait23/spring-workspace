@@ -20,6 +20,7 @@
 			<th>FRUIT_GRADE</th>
 			<th>COUNTRY_ID</th>
 			<th></th>
+			<th></th>
 		</tr>
 		<c:forEach items="${fruits}" var="fruit">
 		<tr>
@@ -29,9 +30,19 @@
 			<td>${fruit.fruit_grade}</td>
 			<td>${fruit.country_id}</td>
 			<td><button onclick="location.href='./update?fruit_id=${fruit.fruit_id}';">수정</button></td>
+			<td>
+				<form action="./delete" method="POST">
+					<input type="hidden" name="fruit_id" value="${fruit.fruit_id}"/>
+					<button type="submit">삭제</button>
+				</form>
+			</td>
 		</tr>
 		</c:forEach>
 	</table>
+	
+	<form action="./add" method="POST">
+		<button type="submit">추가</button>
+	</form>
 	
 
 </body>

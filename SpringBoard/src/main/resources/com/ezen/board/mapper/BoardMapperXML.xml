@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ezen.board.mapper.BoardMapperXML">
+	
+	<select id="getAll" resultType="com.ezen.board.dto.BoardDTO">
+		SELECT board_id,board_title,board_writer,view_count,write_date FROM myboard ORDER BY board_id DESC
+	</select>
+	
+	<select id="get">
+		SELECT * FROM myboard WHERE board_id=#{board_id}
+	</select>
+	
+	<select id="write">
+		INSERT INTO myboard(board_id, board_title, board_content, board_password, board_writer) 
+		VALUES(myboard_id_seq.nextVal,#{board_title},#{board_content},#{board_password},#{board_writer)
+	</select>
+	
+	<delete id="delete">
+		DELETE FROM myboard WHERE board_id=#{board_id}
+	</delete>
+  	
+</mapper>

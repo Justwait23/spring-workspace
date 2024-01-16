@@ -15,4 +15,5 @@ public interface FruitMapperXML {
 	int updateFruit(FruitDTO dto);
 	
 	int delete(int fruit_id);
+	
 }

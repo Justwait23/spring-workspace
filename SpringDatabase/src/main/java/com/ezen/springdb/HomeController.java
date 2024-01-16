@@ -29,9 +29,11 @@ public class HomeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		
-		for (EmployeeDTO emp : empMapper.getAll()) {
-			System.out.println(emp);
-		}
+		empMapper.getAll();
+		
+//		for (EmployeeDTO emp : empMapper.getAll()) {
+//			System.out.println(emp);
+//		}
 		
 		
 		Date date = new Date();

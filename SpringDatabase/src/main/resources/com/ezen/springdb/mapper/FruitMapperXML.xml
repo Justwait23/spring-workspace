@@ -6,6 +6,11 @@
   	<select id="getAll" resultType="com.ezen.springdb.dto.FruitDTO">
 		SELECT * FROM fruits
 	</select>
+	
+	<select id="get" resultType="com.ezen.springboard.dto.BoardDTO">
+		Select * FROM fruits WHERE fruit_id=#{fruit_id}
+	</select>
+	
 	<!-- 메서드 이름이 id이다!!! -->
   	<insert id="add">
   		INSERT INTO fruits(fruit_id,fruit_name,fruit_price,fruit_grade,country_id) 
@@ -20,4 +25,14 @@
   			country_id=#{country_id}
 		WHERE fruit_id=#{fruit_id}
   	</update>
+  	
+  	<delete id="delete">
+  		DELETE FROM fruits WHERE fruit_id=#{id}
+  	</delete>
+  	
+  	
+  	
+  	
+  	
+  	
 </mapper>

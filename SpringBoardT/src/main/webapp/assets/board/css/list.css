@@ -1,0 +1,36 @@
+@charset "UTF-8";
+
+body {
+	background-color: black;
+	color: white;
+}
+
+.board-list {
+	display: grid;
+	grid-template-columns: 100px 1fr auto auto auto;
+	
+}
+
+.board-title {
+	font-weigth: bold;
+	cursor: pointer;
+}
+
+.board-title > a {
+	text-decoration: none;
+}
+
+.board-title > a:link {
+	color: slateblue;
+}
+.board-title > a:visited {
+	color:pink;
+}
+
+.board-list > div {
+	border-bottom: solid orange 1px;
+}
+
+#write-link {
+	color: white;
+}

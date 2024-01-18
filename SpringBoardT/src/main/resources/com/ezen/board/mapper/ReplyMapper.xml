@@ -8,6 +8,10 @@
  		SELECT * FROM myreply WHERE board_id=#{board_id}
  	</select>
  	
+ 	<select id="getReplyCount">
+ 		SELECT COUNT(*) FROM myreply WHERE board_id = #{board_id} GROUP by board_id
+ 	</select>
+ 	
  	
  	<insert id="add" keyProperty="reply_id">
 	 	<selectKey resultType="Integer" keyProperty="reply_id" order="BEFORE">
@@ -20,9 +24,8 @@
  	
  	<update id="updateReplyCount" parameterType="int">
 		UPDATE myboard
-		SET reply_count = (select count(reply_number) FROM reply WHERE board_number = #{board_number})
-		WHERE board_number = #{board_number}
+		SET reply_count = (SELECT count(reply_id) FROM myReply WHERE board_id = #{board_id})
+		WHERE board_id = #{board_id}
 	</update>
- 	
- 	
+	
 </mapper>

@@ -20,9 +20,7 @@
 		<div class="board-id">${bid}</div>
 		<div class="board-title">
 			<a href="./detail?board_id=${bid}">${board.board_title}</a>
-			<c:if test="${board.reply_count ne 0}">
-				<span id="replyBtn" name="${bid}">[&nbsp;<c:out value="${board.reply_count}"/>&nbsp;]</span>
-			</c:if>
+			<a href="./reply/open?board_id=${bid}" onclick="window.open(this.href, '_blank', 'width=500,height=350'); return false;">[${board.reply_count}]</a>
 		</div>
 		<div class="board-writer">${board.board_writer}</div>
 		<div class="write-date">${board.write_date}</div>		

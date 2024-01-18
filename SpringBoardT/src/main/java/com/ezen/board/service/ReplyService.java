@@ -12,5 +12,7 @@ public interface ReplyService {
 	
 	void replyCount(int board_id);
 	
+	int add(ReplyDTO dto);
+	
 
 }

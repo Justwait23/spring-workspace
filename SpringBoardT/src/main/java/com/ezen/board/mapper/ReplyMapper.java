@@ -10,7 +10,9 @@ public interface ReplyMapper {
 	
 	List<ReplyDTO> getBoardReplies(int board_id);
 	
-	void updateReplyCount(int board_id);
+	void getReplyCount(int board_id);
+	
+	int add(ReplyDTO dto);
 	
 //	@Select("SELECT * FROM myreply WHERE board_id=#{board_id}")
 //	ReplyDTO getBoardReplies2(int board_id);

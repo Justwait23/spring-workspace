@@ -9,6 +9,8 @@ public interface BoardMapper {
 	
 	List<BoardDTO> getAll();
 	
+	List<BoardDTO> getAllWithReplyCount();
+	
 	BoardDTO get(int board_id);
 	
 	int insert(BoardDTO dto);

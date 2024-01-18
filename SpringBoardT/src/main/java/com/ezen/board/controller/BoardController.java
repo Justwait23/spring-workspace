@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ezen.board.dto.BoardDTO;
+import com.ezen.board.dto.ReplyDTO;
 import com.ezen.board.service.BoardService;
 import com.ezen.board.service.ReplyService;
 
@@ -44,7 +45,7 @@ public class BoardController {
 		return "/board/writeForm";
 	}
 	
-	@GetMapping("/reply")
+	@GetMapping("/reply/open")
 	public String replyPopup(int board_id, Model model) {
 		model.addAttribute("replies", replyService.list(board_id));
 		return "board/replyPopup";
@@ -62,18 +63,18 @@ public class BoardController {
 		}		
 	}
 	
-//	@PostMapping("/reply/add")
-//	public String replyAdd(ReplyDTO dto, RedirectAttributes rattr) {
-//		int reply_id = boardService.replyAdd(dto);
-//		
-//		if (reply_id > 0) {
-//			rattr.addAttribute("board_id", dto.getBoard_id());
-//			return "redirect:/board/detail";
-//		} else {
-//			return "redirect:/board/addFail";
-//		}
-//		
-//	}
+	@PostMapping("/reply/add")
+	public String replyAdd(ReplyDTO dto, RedirectAttributes rattr) {
+		int reply_id = replyService.add(dto);
+		
+		if (reply_id > 0) {
+			rattr.addAttribute("reply_id", dto.getReply_id());
+			return "redirect:/board/detail";
+		} else {
+			return "redirect:/board/addFail";
+		}
+		
+	}
 }
 
 

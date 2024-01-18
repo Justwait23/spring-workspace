@@ -24,7 +24,19 @@ public class ReplyServiceImpl implements ReplyService{
 
 	@Override
 	public void replyCount(int board_id) {
-		replyMapper.updateReplyCount(board_id);
+		replyMapper.getReplyCount(board_id);
+	}
+
+	@Override
+	public int add(ReplyDTO dto) {
+		int result = replyMapper.add(dto);
+		
+		if (result == 1) {
+			return dto.getReply_id();
+		} else {
+			return result;
+			
+		}
 	}
 
 

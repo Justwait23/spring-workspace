@@ -4,6 +4,12 @@ const emps = document.querySelector('#employees');
 const btn1 = document.querySelector('#btn1');
 const btn2 = document.querySelector('#btn2'); // JSON
 const btn3 = document.querySelector('#btn3'); // XML
+const btn4 = document.querySelector('#btn4'); // PUT 해보기
+
+const quiz2_1 = document.querySelector('#quiz2-1');
+const quiz2_2 = document.querySelector('#quiz2-2');
+const modifyFruitId = document.querySelector('#modify-fruit-id');
+const quiz2_3 = document.querySelector('#quiz2-2');
 
 // out.innerHTML = '여긴 ㅇㅅㅇ하는 사람이 없어서 좋다';
 
@@ -117,4 +123,91 @@ btn3.addEventListener('click', (e) => {
     });
     xhttp.open('GET', './rest/v6');
     xhttp.send();
+});
+
+btn4.addEventListener('click', (e) => {
+    const xhttp = new XMLHttpRequest();
+
+    xhttp.addEventListener('readystatechange', (e) => {
+        console.log('응답받은 상태코드: ' + xhttp.status);
+
+        if (xhttp.readyState === 4) {
+            if (xhttp.status == 200) {
+                console.log('요청이 잘 처리되었습니다..');
+                console.log(JSON.parse(xhttp.responseText));
+            } else if (xhttp.status == 400) {
+                console.log('뭔가 잘 안됐습니다');
+                alert('업데이트 실패!');
+            }
+        }
+
+    });
+
+    // ※ <input>의 데이터로 생성한 객체라고 가정
+    const userData = {
+        employee_id: 188,
+        first_name: 'John',
+        last_name: 'Doe'
+    };
+
+    xhttp.open('PUT', './rest/emp');
+
+    // 데이터를 문자열로 보내야 직렬화가 가능하다
+    // 요청에 함께 실려가는 문자열이 어떤 내용인지 content-type을 통해 설명해야한다
+    // JSON.parse(String) : JSON형식 문자열을 자바스크립트 객체로 변환해주는 메서드
+    // JSON.stringify(Object) : 자바스크립트 객체를 JSON형식 문자열로 변환해주는 메서드
+    xhttp.setRequestHeader('content-type', 'application/json');
+    xhttp.send(JSON.stringify(userData));
+});
+
+quiz2_1.addEventListener('click', (e) => {
+    const xhttp = new XMLHttpRequest();
+
+    const newFruit = {
+        fruit_name: 'Dragon Fruit',
+        fruit_price: 3500, 
+        fruit_grade: 'A',
+        country_id: 'BE'
+    };
+
+    xhttp.addEventListener('readystatechange', (e) => {
+        if (xhttp.readyState == 4 & xhttp.status == 200) {
+            console.log('insert success')
+        }
+    });
+
+    xhttp.open('POST', './rest/fruit');
+    xhttp.setRequestHeader('content-type', 'application/json')
+    xhttp.send(JSON.stringify(newFruit));
+});
+
+quiz2_2.addEventListener('click', (e) => {
+    const xhttp = new XMLHttpRequest();
+
+    const fid = modifyFruitId.value;
+
+    if (fid === null || fid == '' || fid < 0) {
+        alert('ID를 제대로 입력해주세요!')
+        return;
+    }
+
+    const modifyFruit = {
+        fruit_id: fid,
+        fruit_name: 'Strawberry',
+        fruit_price: 700,
+        fruit_grade: 'C+',
+        country_id: 'AR'
+
+    };
+
+    xhttp.addEventListener('readystatechange', (e) => {
+        if (xhttp.readyState == 4 && xhttp.status == 200) {
+            console.log('Update Complete!')
+        }
+        
+    });
+
+    xhttp.open('PUT', `./rest/fruit/${fid}`);
+    xhttp.setRequestHeader('content-type', 'application/json')
+    xhttp.send(JSON.stringify(modifyFruit));
 });

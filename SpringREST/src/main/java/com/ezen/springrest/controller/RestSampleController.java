@@ -8,12 +8,18 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ezen.springrest.dto.EmployeeDTO;
+import com.ezen.springrest.dto.FruitDTO;
 import com.ezen.springrest.service.EmployeeService;
+import com.ezen.springrest.service.FruitService;
 
 import lombok.extern.log4j.Log4j;
 
@@ -26,6 +32,8 @@ public class RestSampleController {
 	
 	@Autowired
 	EmployeeService employeeService;
+	@Autowired
+	FruitService fruitService;
 	
 	// produces : 응답 헤더의 Content-type을 변경한다. (브라우저의 해석 방식 변경)
 	
@@ -157,6 +165,43 @@ public class RestSampleController {
 		
 		
 		return drawEmployees;
+	}
+	
+	@PutMapping("/emp")
+	public ResponseEntity<EmployeeDTO> updateEmp(@RequestBody EmployeeDTO dto) {
+		log.info("PUT!! : " + dto);
+		
+		// DB에 업데이트 후 결과를 얻어 온다고 가정
+		
+		int result = (int)(Math.random() * 2);
+		
+		// 서버측에 결과에 따라 다른 상태 코드를 응답할 수 있다
+		if (result == 1) {
+			// DB 업데이트가 성공적으로 되었을 때는 상태코드 200과 업데이트 된 행을 함께 전달해준다
+			return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON).body(dto);
+		} else {
+			// 업데이트가 실패했을때는 상태코드 400과 null을 응답한다
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+		}
+		
+	}
+	
+	@PostMapping("/fruit")
+	public ResponseEntity<String> insertFruit(@RequestBody FruitDTO fruit) {
+		
+		log.info("POST: " + fruit);
+		
+		
+		return ResponseEntity.ok("OK!");
+	}
+	
+	@PutMapping("/fruit/{fruit_id}")
+	public ResponseEntity<String> updateFruit(@PathVariable("fruit_id") Integer fruit_id, @RequestBody FruitDTO fruit_dto) {
+		
+		log.info("PathVariable: " + fruit_id);
+		log.info("FruitDTO: " + fruit_dto);
+		
+		return ResponseEntity.ok("OK!");
 	}
 	
 
